@@ -6,6 +6,7 @@ from scipy.constants import *
 from numpy.linalg import *
 
 import os.path
+import json
 
 # local files
 from Constants import *
@@ -13,79 +14,44 @@ from Tools import *
 from Signal import *
 
 
-csv = sys.argv[1]
+infile = sys.argv[1]
 
-workdir = os.path.split(csv)[0]
+workdir = os.path.split(infile)[0]
 
-data = genfromtxt(csv, skip_header=1, dtype="S20,f,f,f,f,f")
+with open(infile, 'r') as fp:
+	D = json.load(fp)
 
-# Manually create array, if only one entry in csv
-if len(data.shape) == 0:
-    data = array([ data])
+mp = 1.007				# platform + mounting
+m = D['unit mass']
+mt = D['test mass']
+n = len(D['positions'])
 
-R = []
-T = []
-LI = []
-LIt = []
-for D in data:
-    name = D[0]
-    Mu = D[1] + Constants.Mp
-    Gu = array([ D[2], D[3], D[4] ]) 
-    Itu = D[5]
+for axis in D['series']:
+	LIu = zeros(n)
+	LIt = zeros(n)
+	print "Axis '{}':".format(axis)
 
+	i = 0
+	for rt in D['positions']:
+		name = "{}_{}".format(axis, rt)
+		T = get_period( os.path.join(workdir,name) )
+		Iu = I([0., 0.], m + mp + mt, T)
+		
+		It = mt * rt**2
 
-    R += [ int(name) ]
+		LIu[i] = Iu
+		LIt[i] = It
+		i += 1
 
-    # Unit CoG
-    CoGu = CoG(Gu, Mu)
+	print LIu
+	LI = LIu - LIt
+	if (1):
+		"""
+		plt.plot(LIt)
+		plt.plot(LIu - mean(LI), 'x')
+		"""
+		plt.plot(LI)
 
-    Tu = get_period( os.path.join(workdir,name) )
-    T += [ Tu ]
-
-    # Unit inertia
-    Iu = I(CoGu, Mu, Tu)
-    LI += [ Iu ]
-    LIt += [ Itu ]
-
-    if (0):
-        print "Name: {}".format(name)
-        print "Unit CoG:", CoGu
-        print "Iu:", Iu
-        print "It:", Itu
-        print
-
-T = array( T )
-LI = array( LI )
-LIt = array( LIt )
-
-Ip = mean(LI-LIt)
-#Ip = 0.234519658105
-0.234478887577
-
-err = absolute(LI-Ip-LIt)
-
-print "Ip: {} +/- {}".format(Ip, std(LI-LIt))
-print "I:", LI-Ip
-print "err:", err
-print "err (mean): {} +/- {}".format(mean(err), std(err))
-#print "rel err:", absolute(LI-Ip-LIt) / LIt * 100
-plt.figure(1)
-plt.title("calibration 20s")
-plt.plot(R, LI-Ip,'x', label="LI-Ip")
-plt.plot(R, LIt, label="LIt")
-plt.plot(R, absolute(LI-Ip-LIt), label="error" )
-
-plt.rc('text', usetex=True)
-plt.xlabel(r"$r~[cm]$")
-plt.ylabel(r"$I~[kg~m^2]$")
-plt.margins(.05)
-plt.legend(loc="best")
+	print "I: {} +/- {}".format(mean(LI), std(LI))
+	print
 plt.show()
-
-"""
-# cylinder
-    Mub = 2.385  # unit bare
-    Rdisk = 0.138
-    Tu = 0.548327277151
-    It = .5 * Mub * Rdisk**2
-"""
