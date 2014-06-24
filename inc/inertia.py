@@ -4,86 +4,51 @@ import scipy.constants
 
 
 import constants as C
+import share as S
 from tools import *
 import signal
 import cog
 import json
 
-class Inertia:
-	Mp = 0.			# platform mass
-	Mu = 0.			# unit mass
-	n = 0
+from pprint import pprint
 
-	R = []
-	Data = []
-	Platform = []
+def GetInertiaSeries(workdir, name, m, R, p0):
+	I = []
 
-	workdir = ""
+	for r in R:
+		filename = "{0}/{1}/{2:.2f}".format(workdir, name, r)
+		T = signal.GetPeriod(filename, p0)
+		I += [ C.R**2 / ( (2*pi)**2 * C.L) * scipy.constants.g * m * T**2 ]
 
-	def __init__(self, filename):
-		self.workdir = os.path.split(filename)[0]
+	return array(I)
 
-		with open(filename, 'r') as fp:
-			self.Data = json.load(fp)
+def GetI(workdir, name, m, R, p0, Ip):
+	Iup = GetInertiaSeries(workdir, name, m, R, p0)
+	Iu = Iup - Ip
 
-		self.Mp = self.Data['platform mass']
-		self.Mu = self.Data['unit mass']
-		self.R = self.Data['positions']
-		self.n = len(self.Data['positions'])
+	StatPrint("I_{}".format(name), Iu * 1000)
+	S.Plot['GetI'](workdir, name, m, R, p0, Ip, Iup, Iu)
 
-		s = self.Data['cog']['series']
-		G1 = cog.GetCoG(s['y']['unit'], s['y']['platform'], s['y']['free arm'], self.Mu)
-		G2 = cog.GetCoG(s['z']['unit'], s['z']['platform'], s['z']['free arm'], self.Mu)
+	return mean(Iu) * 1000
 
-		print cog.GetCoG3D(G1, G2, self.Data['cog']['axes'])
+def GetInertiaTensor(workdir, Mu, Mp, R, p0):
+	Ip = GetInertiaSeries(workdir, "platform", Mp, R, p0)
+	print Ip
 
-		self.Platform = self.GetInertiaSeries(self.Data['platform series'], self.Mp)
+	I = {}
+	for axis in ["xx", "yy", "zz", "xy", "xz", "yz"]:
+		I[axis] = GetI(workdir, axis, Mu + Mp, R, p0, Ip)
+	
+	I['xy'] -= (I['xx'] + I['yy']) / 2.
+	I['xz'] -= (I['xx'] + I['zz']) / 2.
+	I['yz'] -= (I['yy'] + I['zz']) / 2.
 
-	def GetInertiaTensor(self):
-		I = {}
+	pprint(I)
 
-		I['xx'] = self.GetAxisInertia('xx')
-		I['yy'] = self.GetAxisInertia('yy')
-		I['zz'] = self.GetAxisInertia('zz')
-
-		# Diagonal elements
-		It = self.GetAxisInertia('xy')
-		I['xy'] = It - (I['xx'] + I['yy']) / 2.
-
-		It = self.GetAxisInertia('xz')
-		I['xz'] = It - (I['xx'] + I['zz']) / 2.
-
-		It = self.GetAxisInertia('yz')
-		I['yz'] = It - (I['yy'] + I['zz']) / 2.	def GetInertiaSeries(self, name, m):
-		LI = []
-
-		for r in self.R:
-			filename = "{}_{}".format(name, r)
-			T = signal.GetPeriod( os.path.join(self.workdir, filename) )
-			LI += [ C.R**2 / ( (2*pi)**2 * C.L) * scipy.constants.g * m * T**2 ]
-
-		return I
-
-	def GetInertiaSeries(self, name, m):
-		LI = []
-
-		for r in self.R:
-			filename = "{}_{}".format(name, r)
-			T = signal.GetPeriod( os.path.join(self.workdir, filename) )
-			LI += [ C.R**2 / ( (2*pi)**2 * C.L) * scipy.constants.g * m * T**2 ]
-
-		return array(LI)
-
-	def GetDiffInertia(self, series):
-		LI = series - self.Platform
-
-		StatPrint("I", LI)
-
-		return mean(LI)
-
-	def GetAxisInertia(self, axis):
+	return I
+	def GetAxisInertia(axis, Mup, R, platform, workdir):
 		print "Axis {}:".format(axis)
-		Iup = self.GetInertiaSeries(axis, self.Mu + self.Mp)
+		Iup = GetInertiaSeries(axis, Mup, R, workdir)
+		Ip = GetDiffInertia(Iup, platform)
 
-		Ip = self.GetDiffInertia(Iup)
 		return Ip
