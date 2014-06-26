@@ -8,31 +8,19 @@ from inc.cog import *
 
 import json
 
-def Plot(g, gp, name):
-	global R
-	print R, g, gp
-	plt.plot(R, g, label="{}".format(name))
-	plt.plot(R, gp, label="{}p".format(name))
-	#plt.plot(R, g-gp, label="{0}-{0}p".format(name))
-
-S.Plot['GetG'] = Plot
-
-
 filename = "data/CoG/3Mass.json"
 
 with open(filename, 'r') as fp:
 	Data = json.load(fp)
 
-R = Data['positions']
+R = array(Data['positions'])
 Mu = Data['unit mass']
+Mt = Data['test mass']
 
 name     = Data['data']['name']
 free_arm = Data['data']['free arm']
 series   = Data['data']['series']
 
-GetCoG2D(name, free_arm, series, Mu)
+GetCoG2DSeries(name, free_arm, series, Mu, Mt, R)
 
-plt.title("CoG Test")
-plt.legend(loc="best")
-plt.savefig("out/out.pdf")
 plt.show()

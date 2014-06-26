@@ -7,31 +7,18 @@ from inc.cog import *
 
 from matplotlib import pyplot as plt
 
-def Plot(g, gp, name):
-	#plt.plot(R, g, 'x', label=name,)
-	plt.plot(R, g-gt, label="{}-gt".format(name))
-
-S.Plot['GetG'] = Plot
-
-
+# Calculation section
 filename = "data/CoG/SingleScale.json"
 with open(filename, 'r') as fp:
 	Data = json.load(fp)
 
 Mt = Data['test mass']
 R  = array( Data['positions'] )
-gt = Mt * R / C.R
 
 for D in Data['series']:
-	data = D['data']
+	g = array(D['data']) * 1e-3
+	PlotGTest(g, Mt, R, D['name'])
+	StatPrint(D['name'], g - Mt*R/C.R)
 
-	GetG(data, gt * 1000)
-
-#plt.plot(R,gt,label=r"$g_{theo}$")
-
-plt.title("Single scale calibration")
-plt.xlabel("r [m]")
-plt.ylabel(r"$\Delta g$ [g]")
-plt.legend(loc="best")
-plt.savefig("out.pdf")
+# Final plotting section
 plt.show()

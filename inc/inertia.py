@@ -12,43 +12,89 @@ import json
 
 from pprint import pprint
 
-def GetInertiaSeries(workdir, name, m, R, p0):
+def PlotITest(I, Mt, R, name):
+	X = linspace(R[0],R[-1], 20)
+	It = lambda R: Mt * R**2
+
+	fig = plt.figure()
+	ax = fig.add_subplot(111)
+	ax.plot(R, (I - mean(I-It(R)))*1000,'x', label=r"$I - \Delta I$")
+	ax.plot(X, It(X)*1000, label=r'$I_t$')
+	ax.set_xlabel(r'$r\,[m]$')
+	ax.set_ylabel(r'$[g\,m^2]$')
+	ax.set_title("${}$".format(name))
+	ax.margins(.05)
+	ax.legend(loc="best")
+	Savefig(fig, name)
+
+def GetInertiaSeries(workdir, name, M, Mt, R, p0):
 	I = []
 
 	for r in R:
 		filename = "{0}/{1}/{2:.2f}".format(workdir, name, r)
 		T = signal.GetPeriod(filename, p0)
-		I += [ C.R**2 / ( (2*pi)**2 * C.L) * scipy.constants.g * m * T**2 ]
+		I += [ C.R**2 / ( (2*pi)**2 * C.L) * scipy.constants.g * M * T**2 ]
+
+	I = array(I)
+	PlotITest(I, Mt, R, name)
 
 	return array(I)
 
-def GetI(workdir, name, m, R, p0, Ip):
-	Iup = GetInertiaSeries(workdir, name, m, R, p0)
+def GetISeries(workdir, name, M, Mt, R, p0, Ip):
+	Iup = GetInertiaSeries(workdir, name, M, Mt, R, p0)
 	Iu = Iup - Ip
 
-	StatPrint("I_{}".format(name), Iu * 1000)
-	S.Plot['GetI'](workdir, name, m, R, p0, Ip, Iup, Iu)
+	StatPrint("{}".format(name), Iu * 1000, "g m^2")
 
-	return mean(Iu) * 1000
+	return Iu
 
-def GetInertiaTensor(workdir, Mu, Mp, R, p0):
-	Ip = GetInertiaSeries(workdir, "platform", Mp, R, p0)
-	print Ip
+def GetDistanceFromAxis(p, axis):
+	N = {
+			'xx': [ 1., 0., 0. ],
+			'yy': [ 0., 1., 0. ],
+			'zz': [ 0., 0., 1. ],
+			'xy': ([ 1., 1., 0. ])/sqrt(2),
+			'xz': ([ 1., 0., 1. ])/sqrt(2),
+			'yz': ([ 0., 1., 1. ])/sqrt(2),
+	}
 
+	n = array(N[axis])
+	d = norm(p - dot(p,n)*n)
+
+	return d
+
+
+def GetInertiaTensorSeries(workdir, Mu, Mp, Mt, R, p0, CoG3D):
+	axes = ["xx", "yy", "zz", "xy", "xz", "yz"]
+
+	Ip = GetInertiaSeries(workdir, "platform", Mp, Mt, R, p0)
+	print "Platform:"
+	StatPrint("I_p", Ip * 1000)
+	print
+
+	print "Moments of inertia:"
+	ParAx = {}
 	I = {}
-	for axis in ["xx", "yy", "zz", "xy", "xz", "yz"]:
-		I[axis] = GetI(workdir, axis, Mu + Mp, R, p0, Ip)
+	for ax in axes:
+		# Apply parallel axis theorem
+		d = GetDistanceFromAxis(CoG3D, ax)
+		Ipa = Mu * d**2
+		ParAx[ax] = [ d, Ipa ]
+
+		I[ax] = GetISeries(workdir, ax, Mu + Mp, Mt, R, p0, Ip)# - Ipa
+	print
 	
 	I['xy'] -= (I['xx'] + I['yy']) / 2.
 	I['xz'] -= (I['xx'] + I['zz']) / 2.
 	I['yz'] -= (I['yy'] + I['zz']) / 2.
 
-	pprint(I)
+	print "Parallel axis correction:"
+	for ax in axes:
+		print "{}: D = {} mm, Ipa = {} g m^2".format(ax, ParAx[ax][0]*1000, ParAx[ax][1]*1000)
+	print
+
+	print "Tensor of Inertia:"
+	for ax in axes:
+		StatPrint("I_{{{}}}".format(ax), I[ax]*1000, 'g m^2', True)
 
 	return I
-	def GetAxisInertia(axis, Mup, R, platform, workdir):
-		print "Axis {}:".format(axis)
-		Iup = GetInertiaSeries(axis, Mup, R, workdir)
-		Ip = GetDiffInertia(Iup, platform)
-
-		return Ip
