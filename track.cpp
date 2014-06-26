@@ -106,15 +106,6 @@ int main(int argc, char* argv[])
 		// Print it out for debugging purposes
 		fprintf(csv, "%f\t%f\n", posX, posY);
 
-		// We want to draw a line only if its a valid position
-        /*
-		if(lastX>0 && lastY>0 && posX>0 && posY>0)
-		{
-			// Draw a yellow line from the previous point to the current point
-			cvLine(imgScribble, cvPoint(posX, posY), cvPoint(lastX, lastY), cvScalar(0,255,255), 5);
-		}
-        */
-
 		// Add the scribbling image and the frame... and we get a combination of the two
         /*
         cvAdd(frame, imgScribble, frame);
