@@ -29,6 +29,6 @@ def Savefig(fig, name):
 
 	directory = "{}/{}".format(out, script)
 	if not os.path.exists(directory):
-		os.mkdir(directory)
+		os.mkdirs(directory)
 
 	fig.savefig("{}/{}/{}.pdf".format(out, script, name_filtered))
