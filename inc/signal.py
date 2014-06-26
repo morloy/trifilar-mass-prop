@@ -9,9 +9,10 @@ from os.path import isfile
 from subprocess import call
 
 i = 0
+p0Last = []
 
 def GetPeriod(name, p0 = [100., 1e-1, 1., .1, 10., 1., 1., .1, 100.]):
-	global i
+	global i, p0Last
 	csv = "{}.csv".format(name)
 
 	# Analyze video, if .csv not already present
@@ -36,7 +37,13 @@ def GetPeriod(name, p0 = [100., 1e-1, 1., .1, 10., 1., 1., .1, 100.]):
 	#plt.plot(t,x)
 	#plt.show()
 
-	coeff, var_matrix = curve_fit(func, t, x, p0=p0)
+	try:
+		coeff, var_matrix = curve_fit(func, t, x, p0=p0)
+		p0Last += [ coeff ]
+	except RuntimeError:
+		for p0 in p0Last:
+			print "[ {} ]".format(', '.join(map(str,p0)))
+		raise
 
 	# select period with biggest amplitude
 	T = abs(coeff[2 + 4*argmax( absolute((coeff[0], coeff[4])) ) ])
