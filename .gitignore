@@ -1,6 +1,9 @@
 # video files
 *.MP4
 
+# vim
+*.swp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
