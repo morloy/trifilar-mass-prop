@@ -33,7 +33,6 @@ def GetPeriod(name, p0 = [100., 1e-1, 1., .1, 10., 1., 1., .1, 100.]):
 		A1, tau1, T1, d1, A2, tau2, T2, d2, C = p
 		return A1 * exp(-tau1*t) * sin(2*pi/T1*t+d1) + A2 * exp(-tau2*t) * sin(2*pi/T2*t+d2) + C
 
-
 	#plt.plot(t,x)
 	#plt.show()
 
@@ -41,6 +40,7 @@ def GetPeriod(name, p0 = [100., 1e-1, 1., .1, 10., 1., 1., .1, 100.]):
 		coeff, var_matrix = curve_fit(func, t, x, p0=p0)
 		p0Last += [ coeff ]
 	except RuntimeError:
+		print "Last successful initial parameters:"
 		for p0 in p0Last:
 			print "[ {} ]".format(', '.join(map(str,p0)))
 		raise

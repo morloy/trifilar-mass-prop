@@ -13,7 +13,7 @@ from matplotlib import pyplot as plt
 def pol2xy(r,theta):
     return array([ r*cos(theta), r*sin(theta) ])
 
-def StatPrint(name, D, unit='', plot=False, rel=True):
+def StatPrint(name, D, unit=''):
 	global fig1, ax1, count, labels
 	m = mean(D)
 	s = std(D)

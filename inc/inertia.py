@@ -69,7 +69,7 @@ def GetInertiaTensorSeries(workdir, Mu, Mp, Mt, R, p0, CoG3D):
 
 	Ip = GetInertiaSeries(workdir, "platform", Mp, Mt, R, p0)
 	print "Platform:"
-	StatPrint("I_p", Ip * 1000)
+	StatPrint("I_p", Ip * 1000, "g m^2")
 	print
 
 	print "Moments of inertia:"
@@ -90,11 +90,11 @@ def GetInertiaTensorSeries(workdir, Mu, Mp, Mt, R, p0, CoG3D):
 
 	print "Parallel axis correction:"
 	for ax in axes:
-		print "{}: D = {} mm, Ipa = {} g m^2".format(ax, ParAx[ax][0]*1000, ParAx[ax][1]*1000)
+		print "{}: D = {} [mm], Ipa = {} [g m^2]".format(ax, ParAx[ax][0]*1000, ParAx[ax][1]*1000)
 	print
 
 	print "Tensor of Inertia:"
 	for ax in axes:
-		StatPrint("I_{{{}}}".format(ax), I[ax]*1000, 'g m^2', True)
+		StatPrint("I_{{{}}}".format(ax), I[ax]*1000, "g m^2")
 
 	return I

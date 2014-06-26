@@ -18,7 +18,7 @@ R  = array( Data['positions'] )
 for D in Data['series']:
 	g = array(D['data']) * 1e-3
 	PlotGTest(g, Mt, R, D['name'])
-	StatPrint(D['name'], g - Mt*R/C.R)
+	StatPrint(D['name'], (g - Mt*R/C.R)*1000, "g")
 
 # Final plotting section
 plt.show()
