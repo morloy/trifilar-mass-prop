@@ -1,0 +1,68 @@
+% -*- coding-system:utf-8 
+\graphicspath{ {./images/} {../out/} }
+\setkeys{Gin}{width=0.9\linewidth}
+\DeclareGraphicsExtensions{.pdf,.png,.jpg,.eps}
+
+\setlength{\parindent}{0in}
+\newcommand{\detail}[1]{{\scriptsize(#1)\par}~}
+\newcommand{\refs}[1]{{\scriptsize\textit{Refs: }#1\par}\hfill.}
+\newcommand\dif{\mathop{}\!\mathrm{d}}
+\newcommand{\mi}{\mathrm{i}}
+\renewcommand{\vec}[1]{\boldsymbol{#1}}
+\newcommand{\kb}{k_{\mathrm{B}}}
+\newcommand{\unit}[1]{\,\mathrm{#1}}
+\newcommand{\desc}[1]{\rlap{\tiny{#1}}}
+\newcommand{\comment}[1]{{\scriptsize \text{#1}}}
+\newcommand{\req}{\overset{!}{=}}
+\newcommand{\mlabel}[1]{\stepcounter{equation}\tag{\theequation}\label{eq:#1}}
+
+\colorlet{punct}{red!60!black}
+\definecolor{background}{HTML}{EEEEEE}
+\definecolor{delim}{RGB}{20,105,176}
+\colorlet{numb}{magenta!60!black}
+
+\lstdefinelanguage{json}{
+    basicstyle=\normalfont\ttfamily,
+    showstringspaces=false,
+    breaklines=true,
+    frame=lines,
+    backgroundcolor=\color{background},
+    literate=
+     *{0}{{{\color{numb}0}}}{1}
+      {1}{{{\color{numb}1}}}{1}
+      {2}{{{\color{numb}2}}}{1}
+      {3}{{{\color{numb}3}}}{1}
+      {4}{{{\color{numb}4}}}{1}
+      {5}{{{\color{numb}5}}}{1}
+      {6}{{{\color{numb}6}}}{1}
+      {7}{{{\color{numb}7}}}{1}
+      {8}{{{\color{numb}8}}}{1}
+      {9}{{{\color{numb}9}}}{1}
+      {:}{{{\color{punct}{:}}}}{1}
+      {,}{{{\color{punct}{,}}}}{1}
+      {\{}{{{\color{delim}{\{}}}}{1}
+      {\}}{{{\color{delim}{\}}}}}{1}
+      {[}{{{\color{delim}{[}}}}{1}
+      {]}{{{\color{delim}{]}}}}{1},
+}
+
+\newcommand{\includecode}{\begingroup
+  \catcode`_=12 \docodelst}
+  \newcommand{\docodelst}[1]{%
+      \lstinputlisting[caption=\texttt{#1}, language=json, tabsize=2, label={lst:#1}]{src/#1}%
+  \endgroup
+}
+\def\arraystretch{1.3}
+
+
+
+
+%\floatstyle{boxed}
+%\newfloat{note}{thpb}{lop}
+%\floatname{note}{Note}
+\newenvironment{note}{\begin{mdframed}}{\end{mdframed}\pagebreak[3]}
+
+\newcommand*{\tags}[1]{\paragraph{tags: }#1\bigskip}
+\newcommand*{\xfield}[1]{\begin{mdframed}\centering #1\end{mdframed}\medskip}
+\newcommand*{\xfront}[1]{\subsection{#1}}
+\newenvironment{field}{}{}
