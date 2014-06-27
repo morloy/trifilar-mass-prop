@@ -25,4 +25,4 @@ It = Mt * R**2
 for s in Data['series']:
 	I = GetISeries(workdir, s, Mt + C.Mp, Mt, R, p0, It)
 
-plt.show()
+#plt.show()

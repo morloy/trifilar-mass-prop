@@ -23,4 +23,4 @@ series   = Data['data']['series']
 
 GetCoG2DSeries(name, free_arm, series, Mu, Mt, R)
 
-plt.show()
+#plt.show()

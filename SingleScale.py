@@ -21,4 +21,4 @@ for D in Data['series']:
 	StatPrint(D['name'], (g - Mt*R/C.R)*1000, "g")
 
 # Final plotting section
-plt.show()
+#plt.show()
