@@ -18,8 +18,9 @@ def PlotITest(I, Mt, R, name):
 
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
-	ax.plot(R, (I - mean(I-It(R)))*1000,'x', label=r"$I - \Delta I$")
-	ax.plot(X, It(X)*1000, label=r'$I_t$')
+	fig.tight_layout(pad=1.4)
+	ax.plot(R, I*1000,'x', label=r"$I$")
+	ax.plot(X, (It(X) + mean(I-It(R)))*1000, label=r'$I_t + \Delta I$')
 	ax.set_xlabel(r'$r\,[m]$')
 	ax.set_ylabel(r'$[g\,m^2]$')
 	ax.set_title("${}$".format(name))

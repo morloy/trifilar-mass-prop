@@ -1,4 +1,5 @@
 from tools import *
+import matplotlib
 
 # Constants
 
@@ -25,3 +26,7 @@ Sv = array([
 
 # Video FPS
 fps = 240
+
+font = {'family' : 'serif',
+        'size'   : 18}
+matplotlib.rc('font', **font)

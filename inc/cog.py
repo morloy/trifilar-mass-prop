@@ -59,8 +59,9 @@ def PlotGTest(g, Mt, R, name):
 
 	fig = plt.figure()
 	ax = fig.add_subplot(111)
-	ax.plot(R, (g-mean(g-gt(R)))*1000, 'x', label=r"${0}-\Delta g$".format(name),)
-	ax.plot(X, gt(X)*1000,label=r"$g_t$")
+	fig.tight_layout(pad=1.4)
+	ax.plot(R, (g)*1000, 'x', label=r"${0}$".format(name),)
+	ax.plot(X, (gt(X)+mean(g-gt(R)))*1000,label=r"$g_t + \Delta g$")
 	ax.set_xlabel(r"$r\,[m]$")
 	ax.set_ylabel(r"$[g]$")
 	#ax.set_title("${}$".format(name))
