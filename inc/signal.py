@@ -1,3 +1,5 @@
+"""Helper function to analyze csv files from videos."""
+
 import constants as C
 
 from numpy import *
@@ -12,6 +14,22 @@ i = 0
 p0Last = []
 
 def GetPeriod(name, p0 = [100., 1e-1, 1., .1, 10., 1., 1., .1, 100.]):
+	"""Returns the period of oscillation from a given filename, corresponding to a csv or movie file.
+	If no csv file exist, the tracker program is called to analyze the video.
+
+	Parameters
+	----------
+	name : str
+		Filename WITHOUT extension.
+	p0 : array_like
+		Initial parameters for the least-square fit given in the order
+		A1, tau1, T1, d1, A2, tau2, T2, d2, C 
+	
+	Returns
+	-------
+	T : float
+		Period of oscillation in seconds.
+	"""
 	global i, p0Last
 	csv = "{}.csv".format(name)
 

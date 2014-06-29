@@ -1,5 +1,6 @@
+"""General tools"""
+
 import constants as C
-import share as S
 
 from numpy import *
 from numpy.linalg import *
@@ -10,10 +11,36 @@ from os.path import splitext
 
 from matplotlib import pyplot as plt
 
-def pol2xy(r,theta):
-    return array([ r*cos(theta), r*sin(theta) ])
+def pol2xy(r, theta):
+	"""Converts polar coordinates from cartesian.
+
+	Parameters
+	----------
+	r : float
+		Radius
+	theta : float
+		Angle
+
+	Returns
+	-------
+	ndarray
+		x and y coordinates
+	"""
+
+	return array([ r*cos(theta), r*sin(theta) ])
 
 def StatPrint(name, D, unit=''):
+	"""Give information about a measurement series.
+
+	Parameters
+	----------
+	name : str
+		Name of measurements to format output.
+	D : ndarray
+		Data array
+	unit : str
+		Unit of the data
+	"""
 	global fig1, ax1, count, labels
 	m = mean(D)
 	s = std(D)
@@ -23,6 +50,15 @@ def StatPrint(name, D, unit=''):
 	print "{:<8} {:>17} {:>10} {:<10} {:<30}".format(name+':', un2str(m, s), perc, unit, D)
 
 def Savefig(fig, name):
+	"""Saves a figure in the 'out' directory, putting it in seperate a folder for each script.
+
+	Parameters
+	----------
+	fig : Figure
+		The figure object from matplotlib
+	name : str
+		Name of the figure, used for the output filename.
+	"""
 	out = "out"
 	name_filtered = re.sub(r"[^A-Za-z0-9-]+", '', name.replace("'", "p"))
 	script = splitext(sys.argv[0])[0]
@@ -38,17 +74,24 @@ from math import floor, log10
 # uncertainty to string, adapted from
 # http://stackoverflow.com/questions/6671053/python-pretty-print-errorbars
 def un2str(x, xe, precision=2):
-    """
-	pretty print nominal value and uncertainty
+    """Pretty print nominal value and uncertainty
 
-    x  - nominal value
-    xe - uncertainty
-    precision - number of significant digits in uncertainty
-
-    returns shortest string representation of `x +- xe` either as
-        x.xx(ee)e+xx
-    or as
-        xxx.xx(ee)
+	Parameters
+	----------
+	x : float
+		Nominal value
+	xe : float
+		Uncertainty
+	precision : int
+		Number of significant digits in uncertainty
+	
+	Returns
+	-------
+	str
+		Shortest string representation of `x +- xe` either as
+			x.xx(ee)e+xx
+		or as
+			xxx.xx(ee)
 	"""
     # base 10 exponents
     x_exp = int(floor(log10(abs(x))))

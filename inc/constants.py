@@ -1,5 +1,7 @@
-from tools import *
+from numpy import *
 import matplotlib
+
+from tools import *
 
 # Constants
 
