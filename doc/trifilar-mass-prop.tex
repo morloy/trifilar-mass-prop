@@ -806,7 +806,7 @@ Defining an arbitrary normalized vector
 	\vec{n} & = \alpha \vec{x} + \beta \vec{y} + \gamma \vec{z}
 \end{align}
 
-where $\alpha + \beta + \gamma = 1$.
+where $\alpha^2 + \beta^2 + \gamma^2 = 1$.
 We can write the moment of inertia as \cite{book:goldstein}
 \begin{align}
 	I & = I_{xx} \alpha^2 + I_{yy} \beta^2 + I_{zz} \gamma^2 + 2 I_{xy} \alpha \beta + 2 I_{yz} \beta \gamma + 2 I_{zx} \gamma \alpha
@@ -867,6 +867,7 @@ To overcome this issue, a plastic ring was made, which fits onto the three spike
 In order to mount the unit in the desired angle, two small pins were attached to the ring. On the other side, three tiny holes with a diameter of a about 1 mm were drilled into the sphere. The two pins and the three holes allow us to mount the sphere in six different orientations on the platform, which correspond exactly to the six axes as given in table \ref{tab:InertiaAxes}.
 Figure \ref{fig:PinsHoles} shows the plastic ring on the platform with the pins and the corresponding holes on the spherical FFU.
 More details on the construction is given in appendix \ref{seq:ConstructAxes}.
+Unfortunately, the axes names drawn currently on the unit surface have the $x$ and $y$ axes swapped compared to the coordinate system given here. This is corrected in all measurements shown here, but has to be taken into account for future measurements!
 
 \begin{figure}
 	\centering
@@ -903,13 +904,13 @@ Thus, we can conclude, that the unit is quite balanced in its geometrical frame.
 	\centering
 	\begin{tabular}{r | r r}
 		\multicolumn{3}{r}{rel. $\sigma$} \\
-		& \multicolumn{2}{r}{2D center of gracity ($x$ orientation)} \\
+		& \multicolumn{2}{r}{2D center of gracity ($x-$ orientation)} \\
 		\hline
 		$g_{1}$	& 2.932(50) g	& 1.69 \% \\
 		$g_{3}$	& 0.884(22) g	& 2.54 \% \\
 		$R_x$	& -1.409(54) mm	& 3.87 \% \\
 		$R_y$	& -6.15(10) mm	& 1.69 \% \\
-		& \multicolumn{2}{r}{2D center of gracity ($z$ orientation)} \\
+		& \multicolumn{2}{r}{2D center of gracity ($z+$ orientation)} \\
 		\hline
 		$g_2$	& 0.730(37) g	& 5.05 \% \\
 		$g_3$	& -0.84(10) g	& 12.46 \% \\
