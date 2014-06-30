@@ -287,7 +287,6 @@ def GetCoG2DSeries(name, free_arm, S, M, Mt, R):
 	"""
 	print "Series '{}':".format(name)
 	n = len(S[0]['data'])
-	pprint(S)
 
 	G = zeros((2,n))
 	for i in xrange(2):
