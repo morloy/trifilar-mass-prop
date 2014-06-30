@@ -422,7 +422,7 @@
 	Mass properties of rigid bodies, which include the \emph{center of gravity} as well as the \emph{inertia tensor} play an important role in the analysis of the motion and the behaviour of moving objects.
 	This report describes a method of determining the stated properties by using a trifilar pendulum.
 	After verifying the basic measurement processes, and testing it against known values, the methods are put together to obtain a three-dimensional center of gravity and the complete inertia tensor given in the center of mass frame of the object being analyzed.
-	All steps are then carried out on the \emph{Muscat FUU}.
+	All steps are then carried out on the \emph{MUSCAT free falling unit (FFU)}.
 \end{abstract}
 
 % Note that keywords are not normally used for peerreview papers.
@@ -448,13 +448,13 @@
 
 \IEEEPARstart{T}{his} report describes a method of determining mass properties of an object by using a trifilar pendulum.
 It gives a method of measuring the three dimensional center of gravity (\emph{CoG}) as well as the complete inertia tensor in the center of mass frame of the object being measured.
-These properties are necessary to determine the motion of a rigid body, e.~g. to compute there behaviour as a gyroscope.
-This is especially important for the \emph{Space and Plasma Physics} group at \emph{KTH, Stockholm}, which has been sending several units on the rocktes of the \emph{REXUS} (\emph{Rocket Experiments for University Students}) programme. These rockets are spin-stabilized, thus carried units gyrate quickly upon ejection in the atmosphere.
+These properties are necessary to determine the motion of a rigid body, e.~g. to compute their behaviour as a gyroscope.
+This is especially important for the \emph{Space and Plasma Physics} group at \emph{KTH, Stockholm}, which has been sending several units on the rockets of the \emph{REXUS} (\emph{Rocket Experiments for University Students}) programme. These rockets are spin-stabilized, thus carried units gyrate quickly upon ejection in the atmosphere.
 To analyze the measurements of these experiments, good knowledge of the mass properties is often necessary.
 
 First, the method of measuring the two-dimensional center of mass is being described. The precision is tested with a setup of test objects of known mass properties.
 Next, the procedure of measuring the moment of inertia is introduced and again, tested for precision with well-defined test objects.
-Finally, the complete tensor of inertia, based on the previous measurement techniques is being determined for the \emph{Muscat FFU} (\emph{Free-Falling Unit} of the \emph{MUltiple Spheres for Characterization of Atmospheric Temperature} experiment).
+Finally, the complete tensor of inertia, based on the previous measurement techniques is being determined for the \emph{MUSCAT FFU} (\emph{Free-Falling Unit} of the \emph{MUltiple Spheres for Characterization of Atmospheric Temperature} experiment).
 
 The work of this report is based on the platform built by \emph{Ernest C. Vallet} and uses much of his previous work found in \cite{report:ernest}.
 
@@ -479,7 +479,7 @@ The work of this report is based on the platform built by \emph{Ernest C. Vallet
 	\setkeys{Gin}{width=0.49\linewidth}
 	\includegraphics{PlatformCoordinates1}
 	\includegraphics{PlatformCoordinates2}
-	\caption{Two pictures showing the trifilar pendulum with the \emph{Muscat FFU} mounted on the plastic ring, also giving the coordinate system used for the measurements. The first picture shows the free pendulum, whereas the second shows the pendulum on the support points.}
+	\caption{Two pictures showing the trifilar pendulum with the \emph{MUSCAT FFU} mounted on the plastic ring, also giving the coordinate system used for the measurements. The first picture shows the free pendulum, whereas the second shows the pendulum on the support points.}
 	\label{fig:Platform}
 \end{figure*}
 
@@ -510,7 +510,7 @@ The other support points are attached to the end of each arm and placed on a pre
 	\includegraphics{Support1}
 	\includegraphics{Support2}
 	\includegraphics{Support3}
-	\caption{Fixed platform with \emph{Muscat FFU} on the central spike (a), support point on a scale (b) and the free arm (c).}
+	\caption{Fixed platform with \emph{MUSCAT FFU} on the central spike (a), support point on a scale (b) and the free arm (c).}
 	\label{fig:Support}
 \end{figure}
 
@@ -806,8 +806,7 @@ Defining an arbitrary normalized vector
 	\vec{n} & = \alpha \vec{x} + \beta \vec{y} + \gamma \vec{z}
 \end{align}
 
-where $\alpha^2 + \beta^2 + \gamma^2 = 1$.
-We can write the moment of inertia as \cite{book:goldstein}
+where $\alpha^2 + \beta^2 + \gamma^2 = 1$, we write the moment of inertia as \cite{book:goldstein}
 \begin{align}
 	I & = I_{xx} \alpha^2 + I_{yy} \beta^2 + I_{zz} \gamma^2 + 2 I_{xy} \alpha \beta + 2 I_{yz} \beta \gamma + 2 I_{zx} \gamma \alpha
 \end{align}
@@ -851,21 +850,21 @@ The distance of a point $\vec{p}$ from a line $\vec{x} = \vec{a} + t \vec{n}$ ca
 	R & = || (\vec{a} - \vec{p}) - ( (\vec{a} - \vec{p}) \cdot \vec{n}) \vec{n} ||
 \end{align}
 
-And since the axis all have their origin in $\vec{a} = \vec{0}$, we simply have
+And since the axes all have their origin in $\vec{a} = \vec{0}$, we simply have
 \begin{align}
 	R & = || \vec{p} - (\vec{p} \cdot \vec{n}) \vec{n} ||
 \end{align}
 
-\section{Analysis of the Muscat FFU}
+\section{Analysis of the MUSCAT FFU}
 
-To apply the whole procedure, the Free-Falling Unit (FFU) from the \emph{Muscat} project has been analyzed.
+To apply the whole procedure, the Free-Falling Unit (FFU) from the \emph{MUSCAT} project has been analyzed.
 Since the unit has the shape of a sphere, it is easily possible to mount it in the required orientations. 
 
 Unfortunately, the FFU did not fit well on the platform, as the three spikes in the middle had a too big distance from each other to support the unit.
 Additionaly, the spherical shape make it difficult to rotate the unit by exactly 45 or 90 degrees.
-To overcome this issue, a plastic ring was made, which fits onto the three spike in the center of the platform and has a smaller inner radius, such that the unit fits well onto the ring.
+To overcome this issue, a plastic ring was made, which fits onto the three spikes in the center of the platform and has a smaller inner radius, such that the unit fits well onto the ring.
 In order to mount the unit in the desired angle, two small pins were attached to the ring. On the other side, three tiny holes with a diameter of a about 1 mm were drilled into the sphere. The two pins and the three holes allow us to mount the sphere in six different orientations on the platform, which correspond exactly to the six axes as given in table \ref{tab:InertiaAxes}.
-Figure \ref{fig:PinsHoles} shows the plastic ring on the platform with the pins and the corresponding holes on the spherical FFU.
+Figure \ref{fig:PinsHoles} shows the plastic ring on the platform with the two pins and the three corresponding holes on the spherical FFU.
 More details on the construction is given in appendix \ref{seq:ConstructAxes}.
 Unfortunately, the axes names drawn currently on the unit surface have the $x$ and $y$ axes swapped compared to the coordinate system given here. This is corrected in all measurements shown here, but has to be taken into account for future measurements!
 
@@ -874,11 +873,11 @@ Unfortunately, the axes names drawn currently on the unit surface have the $x$ a
 	\setkeys{Gin}{width=0.49\linewidth}
 	\includegraphics{Pins}
 	\includegraphics[clip=true,trim=0 0 0 126px]{Holes}
-	\caption{Small pins attached to the plastic ring (a), that fit into corresponding holes on the unit surface (b) make easy to mount the unit in the 6 different orientations.}
+	\caption{Small pins attached to the plastic ring (a), that fit into the 3 holes on the unit surface (b) make easy to mount the unit in the 6 different orientations.}
 	\label{fig:PinsHoles}
 \end{figure}
 
-Once the unit can be mounted in the needed orientation, a total of 15 measurement series have to be performed. 8 are required to obtain the 3D center of gravity, 1 for the platform inertia and the additional 6 for the moment of inertia coefficients.
+Once the unit can be mounted in the needed orientation, a total of 15 measurement series have to be performed. Eight are required to obtain the 3D center of gravity, one for the platform inertia and the additional six for the moment of inertia coefficients.
 This is a very tedious process, and thus could be improved in the future.
 
 As introduced before, we test each measurement series against the prediction, which is
@@ -893,12 +892,12 @@ The results are given in figure \ref{fig:FFU} for the center of gravity measurem
 No major deviations from the predicion could be observed.
 Table \ref{tab:FFUCoG} lists the results from the center of gravity measurements.
 Note, that the value $g_i - g_i'$ is abbreviated simply as $g_i$.
-As one can see, the center of gravity is slightly displaced from the geometrical center of the unit by a about 4 millimeters. Where the relative deviation of the measurements is only about 5 \%.
+As one can see, the center of gravity is slightly displaced from the geometrical center of the unit by a about 4 millimeters with a relative deviation of about 5 \%.
 However, as seen in the 2D center of gravity measurement in section \ref{sec:2DCoG}, there might be some systematic error, so the real center could be shifted by another few millimeters.
 
-The results on the inertia measurements for the single axes are listed in table \ref{tab:FFUI}. Also listed there are the values for the parallel axis correction. Comparing these to the actual moments of inertia, their magnitude is very small, since the center of gravity lies close to the geometrical center.
+The results on the inertia measurements for the single axis are listed in table \ref{tab:FFUI}. Also listed there are the values for the parallel axis correction. Comparing these to the actual moments of inertia, their magnitude is very small, since the center of gravity lies close to the geometrical center.
 The final result of the inertia tensor is given in table \ref{tab:FFUInertiaTensor}. The off-diagonal elements are very small, their values are even below the measured deviation.
-Thus, we can conclude, that the unit is quite balanced in its geometrical frame.
+Thus, we can conclude, that the unit is balanced in its geometrical frame.
 
 \begin{table}
 	\centering
@@ -925,7 +924,7 @@ Thus, we can conclude, that the unit is quite balanced in its geometrical frame.
 		\hline
 		$D$	& 3.73(17) mm	& 4.67 \% \\
 	\end{tabular}
-	\caption{Complete set of results for determining the 3D center of gravity of the \emph{Muscat FFU}. [\texttt{InertiaTensor.py}]}
+	\caption{Complete set of results for determining the 3D center of gravity of the \emph{MUSCAT FFU}. [\texttt{InertiaTensor.py}]}
 	\label{tab:FFUCoG}
 \end{table}
 
@@ -941,7 +940,7 @@ Thus, we can conclude, that the unit is quite balanced in its geometrical frame.
 		$xz$	& 2.384(79) & 3.31 \%	& 2.54	& 0.0027 \\
 		$yz$	& 2.43(20) & 8.30 \%	& 3.93	& 0.0064 \\
 	\end{tabular}
-	\caption{Moment of inertia measurements of the \emph{Muscat FFU} along the axes to compute the inertia tensor. Also given is the perpendicular distance of each axis to the 3D center of gravity, as well as the resulting correction $mR^2$ from the parallel axis theorem. [\texttt{InertiaTensor.py}]}
+	\caption{Moment of inertia measurements of the \emph{MUSCAT FFU} along the axes to compute the inertia tensor. Also given is the perpendicular distance of each axis to the 3D center of gravity, as well as the resulting correction $mR^2$ from the parallel axis theorem. [\texttt{InertiaTensor.py}]}
 	\label{tab:FFUI}
 \end{table}
 
@@ -958,7 +957,7 @@ Thus, we can conclude, that the unit is quite balanced in its geometrical frame.
 		$I_{xz}$	&	0.04(14)	& 349 \% \\
 		$I_{yz}$	&	0.14(23)	& 168 \% \\
 	\end{tabular}
-	\caption{The inertia tensor of the \emph{Muscat FFU}. [\texttt{InertiaTensor.py}]}
+	\caption{The inertia tensor of the \emph{MUSCAT FFU}. [\texttt{InertiaTensor.py}]}
 	\label{tab:FFUInertiaTensor}
 \end{table}
 
@@ -1070,9 +1069,10 @@ While there was some deviation between the measured center of gravity in two dim
 However, the difference between the experimental value and the prediction has to be investigated more thoroughly in a future work.
 
 The moment of inertia measurement of the platform has been done with a quite high precision, giving only a relative standard deviation of 0.1 \%.
-But since the platform moment is much higher than the that of the actual unit being measured, this precision may not be sufficient for many cases, thus giving a relative standard deviation of up to 10 \% on the \emph{Muscat FFU} measurements.
-This precision however, can propably easily be increased by just capturing longer videos with the \emph{GoPro} camera.
-Another way to increase the precision might be the use of the general expression of eq. \ref{eq:I}.
+But since the platform moment is much higher than the that of the actual unit being measured, this precision may not be sufficient for many cases.
+As can be seen, the relative standard deviation on the \emph{MUSCAT FFU} measurements goes up to 8.3 \%!
+This precision could maybe easily be increased by just capturing longer videos with the \emph{GoPro} camera.
+Another way to increase the precision might be the use of the general expression of eq. \ref{eq:I} as found in \cite{report:ernest}.
 
 Finally, all the code is given to combine the measurements to a complete determination of the inertia tensor. Nevertheless, an error analysis of this computation has yet to be done, in order to identify the inputs, that are most crucial in the precision of the single coefficients. This could also be part of some future work.
 
@@ -1251,7 +1251,7 @@ If the script runs without errors, it should output a list of all variable as th
 \section{Constructing axes on a sphere}
 \label{seq:ConstructAxes}
 
-The outer appearance of the \emph{Muscat FFU} consists of two hemispheres and a hole for an electrical connector. The sphere has a radius of $r =$ 6.2 mm.
+The outer appearance of the \emph{MUSCAT FFU} consists of two hemispheres and a hole for an electrical connector. The sphere has a radius of $r =$ 6.2 mm.
 Since we need to mount it in 6 different orientations on the platform, there was a need to construct the main axes on the surface, which have a right angle between each other, as well as the diagonal axes, which are inclined at 45 degrees relative to the main axes.
 Additionaly, these axes have to be aligned to the reference frame of the platform.
 
@@ -1337,7 +1337,7 @@ With this setup, the unit can now be mechanically fixed to the platform in one o
 	\includegraphics{InertiaTensor/xy}
 	\includegraphics{InertiaTensor/xz}
 	\includegraphics{InertiaTensor/yz}
-	\caption{Complete set of measurement curves for the inertia tensor of the \emph{Muscat FFU}. Shifted upon theoretical predictions $g_{\textup{t}}$ and $I_{\textup{t}}$ to verify the linear/quadratic shape. [\texttt{InertiaTensor.py}]}
+	\caption{Complete set of measurement curves for the inertia tensor of the \emph{MUSCAT FFU}. Shifted upon theoretical predictions $g_{\textup{t}}$ and $I_{\textup{t}}$ to verify the linear/quadratic shape. [\texttt{InertiaTensor.py}]}
 	\label{fig:FFU}
 \end{figure}
 
