@@ -479,7 +479,7 @@ The work of this report is based on the platform built by \emph{Ernest C. Vallet
 	\setkeys{Gin}{width=0.49\linewidth}
 	\includegraphics{PlatformCoordinates1}
 	\includegraphics{PlatformCoordinates2}
-	\caption{Two pictures showing the trifilar pendulum with the \emph{MUSCAT FFU} mounted on the plastic ring, also giving the coordinate system used for the measurements. The first picture shows the free pendulum, whereas the second shows the pendulum on the support points.}
+	\caption{Two pictures showing the trifilar pendulum with the \emph{MUSCAT FFU} mounted on the plastic ring, also giving the coordinate system used for the measurements. The first picture shows the free pendulum, whereas the second shows the pendulum on the support points. The vector corresponding to $L$ is parallel to the $z$ axis, whereas the vectors for $R$ lie in the $xy$ plane. They look different on the picture due to perspective distortions.}
 	\label{fig:Platform}
 \end{figure*}
 
@@ -546,7 +546,7 @@ This gives statistics about the real center of gravity of the unit and since the
 \label{sec:SingleScale}
 
 To check, if the above procedure works as expected, we need to test it against a known property.
-Therefore, we select one arm to be tested and perform measurements using a test mass placed at different positions on the arm, see picture \ref{fig:TestMass}.
+Therefore, we select one arm to be tested and perform measurements using a test mass placed at different positions on the arm, see figure \ref{fig:TestMass}.
 
 \begin{figure}[b]
 	\centering
@@ -637,7 +637,7 @@ This can be due to systematic errors in the measurement procedure and has to be 
 	\label{tab:3MassValues}
 \end{table}
 
-\begin{table}
+\begin{table}[t]
 	\centering
 	\begin{tabular}{r | r r}
 		& x [mm] & y [mm] \\
@@ -684,15 +684,17 @@ The measurement procedure for the moment of inertia is based on the relation \ci
 	\label{eq:I}
 \end{align}
 
-where $T$ denotes the period of the oscillation of the trifilar pendulum.
+where $T$ denotes the period of the oscillation of the trifilar pendulum. $L$ is the length of the cables, that hold the platform and $R$ is the distance from the attachment point of these cables to the center of the platform. Figures \ref{fig:Platform} shows the two quantities on the real platform. The cables are parallel to the $z$ axis, however due to perspective distortions, they appear different in the picture.
+
 The equation requires, that the center of gravity is in the geometric center of the platform.
 For the generic case, the factor $\frac{R^2}{(2\pi)^2 L}$ has to be replaced by a more complicated expression.
 Although, no experimental deviations from this approximated formula have been observed.
 
-To measure the oscillation period, a laser beam points to one arm of the platform.
-A mirror reflects the beam, which is then projected onto a white paper on the wall and filmed with a camera. 
+To measure the oscillation period, a fixed laser beam points on a tiny mirror, which is mounted on arm 3 of the platform.
+The reflected beam is then projected onto a white paper on the wall behind the laser pointer and there filmed with a camera. 
+When the pendulum rotates, the angle of the reflected beam changes, thus resulting in a periodic movement of the laser dot on the white paper.
 A \emph{GoPro Hero} video camera is used to record a video of the laser dot at 240 frames per second.
-To greatly enhance the contrast of the resulting video file, the room lighting must be turned off during measurement and the desk lamp at the platform used instead.
+To greatly enhance the contrast of the resulting video file, the room lighting must be turned off during measurement and the desk lamp at the platform used instead to work with the platform.
 The camera mount and the laser dot is shown in figure \ref{fig:LaserDot}
 
 \begin{figure}
@@ -704,7 +706,7 @@ The camera mount and the laser dot is shown in figure \ref{fig:LaserDot}
 	\label{fig:LaserDot}
 \end{figure}
 
-To analize a video, each frame is converted to \emph{HSV} (\emph{Hue-Saturation-Value}) color space and filtered for the range (150,0,100) -- (349,255,255).
+To analize a video, each frame is converted to \emph{HSV} (Hue-Saturation-Value) color space and filtered for the range (150,0,100) -- (349,255,255).
 This selects only the pixels of the laser dot, as demonstrated in figure \ref{fig:VideoThreshhold}.
 The first order moments of the filtered image for the $x$, resp. $y$ axis divided by the total area of the dot then give the coordinates of the point in a particular frame.
 
@@ -715,7 +717,7 @@ The first order moments of the filtered image for the $x$, resp. $y$ axis divide
 	\label{fig:VideoThreshhold}
 \end{figure}
 
-The analysis is done by a simple program in \emph{C++}, which uses the \emph{OpenCV} library for image analysis.
+The analysis is done by a simple program in \emph{C++}, which uses the \emph{OpenCV} (Open Source Computer Vision) library for image analysis.
 Since this requires some computing power, analyzing a 20 s video with a resolution of \emph{848 x 480 / 240 fps} takes up to 30 s on an \emph{Intel i5-2540M}.
 
 To determine the period from the analyzed video file, a fit with two damped sine waves is performed. The fitting function is defined as
@@ -964,7 +966,7 @@ Thus, we can conclude, that the unit is balanced in its geometrical frame.
 \section{Implementation}
 
 The code to analyze the measurement results is written in \emph{Python} and relies heavily on \emph{numpy}, \emph{scipy} and \emph{matplotlib}.
-Experimental data is read from \emph{JSON} files.
+Experimental data is read from \emph{JSON} (JavaScript Object Notation) files.
 The complete project is available in a repository on \emph{GitHub} at \cite{website:github}.
 And includes all script, which were used to create the plots in this report.
 Thus, all the measurements results are also stored in the repository. 
@@ -1263,7 +1265,7 @@ The fomula then can be found as
 \begin{align}
 	a & = \sqrt{r^2 - R^2} \\
 	b & = r - a \\
-	c(R) & = \sqrt{R^2 + b^2}\\
+	c(R) & \equiv \sqrt{R^2 + b^2}\\
 	& = \sqrt{2r^2 - 2r \sqrt{r^2 - R^2}} \\
 	& = r \sqrt{2 \left(  1 - \sqrt{1 - \left( \frac{R}{r} \right)^2 } \right)}
 	\label{eq:cR}
@@ -1272,14 +1274,14 @@ The fomula then can be found as
 Now, by using this formula for $R = r$, we can draw the equator for a given point on the sphere.
 In this case the equation eq. \eqref{eq:cR} reduces to
 \begin{align}
-	c(r) & = \sqrt{2}~r
+	c(R=r) & = \sqrt{2}~r
 \end{align}
 
 Taking an arbitrary point and drawing the equator and then drawing the next equator from another point on the equator line, we can construct the main axes, which have an angle of 90 degree to each other.
 
 The next step is to draw the diagonal axes. For this purpose, we use $R = r \sin \frac{\pi}{4} = \frac{r}{\sqrt{2}}$ and thus find
 \begin{align}
-	c\left( \frac{r}{\sqrt{2}} \right) & = \sqrt{2 - \sqrt{2}}~r
+	c\left(R = \frac{r}{\sqrt{2}} \right) & = \sqrt{2 - \sqrt{2}}~r
 \end{align}
 
 By drawing circles of this radius around each axis point, we find the diagonal axes at the circle intersections.
