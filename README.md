@@ -1,4 +1,12 @@
 trifilar-mass-prop
 ==================
 
-Determine mass properties with a trifilar pendulum.
+This project is about determininig the mass properties like the center of gravity and the inertia tensor of arbitrary object by using a trifilar pendulum.
+
+It is the result of a [Project in Space Technology, EF1112](https://www.kth.se/social/course/EF1112/) at *KTH Stockholm* in VT14 under supervision of *Nickolay Ivchenko*.
+
+The **final report** is located at [doc/trifilar-mass-prop.pdf](blob/master/doc/trifilar-mass-prop.pdf).
+
+The source code is documented using numpydoc/Sphinx and a sample output is given at [\_build/latex/trifilar-mass-prop.pdf](blob/master/_build/latex/trifilar-mass-prop.pdf).
+
+Since much of the project is based on previous work by *Ernest C. Vallet*, his report is provided for reference at [doc/Balancing\_FFUs.pdf](blob/master/doc/Balancing_FFUs.pdf).
