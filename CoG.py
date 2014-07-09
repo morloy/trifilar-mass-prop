@@ -2,7 +2,6 @@ from numpy import *
 from matplotlib import pyplot as plt
 
 import inc.constants as C
-import inc.share as S
 from inc.tools import *
 from inc.cog import *
 

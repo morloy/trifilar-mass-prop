@@ -2,7 +2,6 @@ from numpy import *
 from matplotlib import pyplot as plt
 
 import inc.constants as C
-import inc.share as S
 import inc.signal
 
 from inc.tools import *
