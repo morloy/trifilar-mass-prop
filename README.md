@@ -3,7 +3,7 @@ trifilar-mass-prop
 
 This project is about determininig the mass properties like the center of gravity and the inertia tensor of arbitrary object by using a trifilar pendulum.
 
-It is the result of a [Project in Space Technology, EF1112](https://www.kth.se/social/course/EF1112/) at *KTH Stockholm* in VT14 under supervision of *Nickolay Ivchenko*.
+It is the result of a [Project in Space Technology, EF1112](http://www.kth.se/student/kurser/kurs/EF1112?l=en) at *KTH Stockholm* in VT14 under supervision of *Nickolay Ivchenko*.
 
 The **final report** is located at [doc/trifilar-mass-prop.pdf](doc/trifilar-mass-prop.pdf?raw=true).
 
