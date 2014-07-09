@@ -56,5 +56,13 @@ coverage.xml
 *.pot
 
 # Sphinx documentation
-docs/_build/
+_build/
+
+# LaTeX
+*.aux
+*.bbl
+*.blg
+*.out
+*.gz
+*.latexmain
 
