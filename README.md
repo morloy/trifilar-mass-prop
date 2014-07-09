@@ -5,8 +5,8 @@ This project is about determininig the mass properties like the center of gravit
 
 It is the result of a [Project in Space Technology, EF1112](https://www.kth.se/social/course/EF1112/) at *KTH Stockholm* in VT14 under supervision of *Nickolay Ivchenko*.
 
-The **final report** is located at [doc/trifilar-mass-prop.pdf](doc/trifilar-mass-prop.pdf).
+The **final report** is located at [doc/trifilar-mass-prop.pdf](doc/trifilar-mass-prop.pdf?raw=true).
 
-The source code is documented using numpydoc/Sphinx and a sample output is given at [\_build/latex/trifilar-mass-prop.pdf](_build/latex/trifilar-mass-prop.pdf).
+The source code is documented using numpydoc/Sphinx and a sample output is given at [\_build/latex/trifilar-mass-prop.pdf](_build/latex/trifilar-mass-prop.pdf?raw=true).
 
-Since much of the project is based on previous work by *Ernest C. Vallet*, his report is provided for reference at [doc/Balancing\_FFUs.pdf](doc/Balancing_FFUs.pdf).
+Since much of the project is based on previous work by *Ernest C. Vallet*, his report is provided for reference at [doc/Balancing\_FFUs.pdf](doc/Balancing_FFUs.pdf?raw=true).
