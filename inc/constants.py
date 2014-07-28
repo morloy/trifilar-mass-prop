@@ -3,6 +3,7 @@ import matplotlib
 
 from tools import *
 
+
 # Constants
 
 # Distances [m]
@@ -15,9 +16,9 @@ Mp = 0.848			# platform bare
 Mpm = 1.003			# platform + mount
 
 # Errors
-DR = DL = .5e-3
-Dg  = 0.10e-3
-DM = 0.005e-3
+DR = DL = .5e-3		# [m]
+Dg  = 0.2			# [g]
+DM = 0.5e-3		    # [kg]
 
 # Support points
 Sv = array([
@@ -29,6 +30,9 @@ Sv = array([
 # Video FPS
 fps = 240
 
+# Matplotlib style adjustments
 font = {'family' : 'serif',
+		'serif': ['Computer Modern Roman'],
         'size'   : 18}
 matplotlib.rc('font', **font)
+plt.rc('text', usetex=True)

@@ -11,7 +11,7 @@ import json
 import constants as C
 from tools import *
 
-def PlotITest(I, Mt, R, name):
+def PlotITest(I, Mt, R, IErr, name):
     """Create a plot for a inertia series measurements.
     The plot is written as a pdf file in the 'out' folder.
 
@@ -23,17 +23,21 @@ def PlotITest(I, Mt, R, name):
         The test mass
     R : ndarray
         The measurements positions in m
+    IErr : ndarray
+        The error of the inertia series
     name : str
         Name for the measurement, appears in the title, may contain LaTeX.
     """
+    s = 1000
+
     X = linspace(R[0],R[-1], 20)
     It = lambda R: Mt * R**2
 
     fig = plt.figure()
     ax = fig.add_subplot(111)
     fig.tight_layout(pad=1.9)
-    ax.plot(R, I*1000,'x', label=r"$I$")
-    ax.plot(X, (It(X) + mean(I-It(R)))*1000, label=r'$I_t + \Delta I$')
+    ax.plot(X, (It(X) + mean(I-It(R)))*s, label=r'$I_t + \delta I$')
+    ax.errorbar(R, I*s, yerr=IErr*s, fmt='o', label=r"$I \pm \Delta I$")
     ax.set_xlabel(r'$r\,[m]$')
     ax.set_ylabel(r'$[g\,m^2]$')
     ax.set_title("${}$".format(name))
@@ -65,15 +69,22 @@ def GetInertiaSeries(workdir, name, M, Mt, R, p0):
     I : ndarray
         The inertia series.
     """
-    I = []
+    T = []
+    TErr = []
 
     for r in R:
             filename = "{0}/{1}/{2:.2f}".format(workdir, name, r)
-            T = signal.GetPeriod(filename, p0)
-            I += [ C.R**2 / ( (2*pi)**2 * C.L) * scipy.constants.g * M * T**2 ]
+            t, terr = signal.GetPeriod(filename, p0)
+            T    += [ t ]
+            TErr += [ terr ]
 
-    I = array(I)
-    PlotITest(I, Mt, R, name)
+    T = array(T)
+    TErr = array(TErr)
+
+    I    = C.R**2 / ( (2*pi)**2 * C.L) * scipy.constants.g * M * T**2
+    IErr = I*( 2.*C.DR/C.R + C.DL/C.L + C.DM/M + 2.*TErr/T)
+
+    PlotITest(I, Mt, R, IErr, name)
 
     return array(I)
 
