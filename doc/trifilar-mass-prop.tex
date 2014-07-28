@@ -135,7 +135,7 @@
 \usepackage{xcolor}
 \usepackage{listings}
 \usepackage{caption}
-\usepackage{subfigure}
+\usepackage{subcaption}
 \pdfminorversion=4
 
 
@@ -457,6 +457,8 @@ Next, the procedure of measuring the moment of inertia is introduced and again, 
 Finally, the complete tensor of inertia, based on the previous measurement techniques is being determined for the \emph{MUSCAT FFU} (\emph{Free-Falling Unit} of the \emph{MUltiple Spheres for Characterization of Atmospheric Temperature} experiment).
 
 The work of this report is based on the platform built by \emph{Ernest C. Vallet} and uses much of his previous work found in \cite{report:ernest}.
+While his work concentrated on building the actual platform and giving some theory on the measurement process, this work focuses on performing these measurements and testing them against known values, as well as finally carrying out the whole process on a real unit.
+The setup was extended to measure the period of oscillation using a laser beam -- in the previous setup the platform was filmed directly. All measurements presented here were taken independently. The code to process the data was written from scratch and is available in a \emph{GitHub} repository \cite{website:github}.
 
 % The very first letter is a 2 line initial drop letter followed
 % by the rest of the first word in caps.
@@ -506,10 +508,20 @@ The other support points are attached to the end of each arm and placed on a pre
 
 \begin{figure}[b]
 	\centering
-	\setkeys{Gin}{width=0.32\linewidth}
-	\includegraphics{Support1}
-	\includegraphics{Support2}
-	\includegraphics{Support3}
+
+	\begin{subfigure}{0.32\linewidth}
+		\includegraphics{Support1}
+		\subcaption{}
+	\end{subfigure}
+	\begin{subfigure}{0.32\linewidth}
+		\includegraphics{Support2}
+		\subcaption{}
+	\end{subfigure}
+	\begin{subfigure}{0.32\linewidth}
+		\includegraphics{Support3}
+		\subcaption{}
+	\end{subfigure}
+
 	\caption{Fixed platform with \emph{MUSCAT FFU} on the central spike (a), support point on a scale (b) and the free arm (c).}
 	\label{fig:Support}
 \end{figure}
@@ -520,7 +532,7 @@ As the scales give the equivalent of a mass placed at the support point and the 
 	& = \frac{g_1 \vec{s}_1 + g_2 \vec{s}_2}{M} & \comment{$\vec{s}_{\textup{c}} = (0,0)$}
 \end{align}
 
-where $g_i$ denote the values measured by the scales.
+where $g_i$ denote the mass equivalents measured by the scales.
 
 Equating with \eqref{eq:CogFull} gives
 \begin{align}
@@ -570,15 +582,18 @@ Taking the absolute value, we thus have
 
 which predicts the result of the measurements to be a linear function in $r$ shifted by the constant value $g_1'$.
 
-A test has then been performed on each arm with a nut of mass $10.40 \unit{g}$ placed at positions $r \in [25, 75]$~cm in steps of 5~cm.
-To estimate the constant $g'$, we take the mean difference between the measured $g$ and $g_{\textup{t}}$.
-This quantiy is used again in many other plots and is thus given as
+A test has then been performed on each arm with a nut of mass $10.40 \unit{g}$ placed at positions $r \in [25, 75]$~cm in steps of 5~cm, thus giving a total of 11 measurements.
+To estimate the constant $g'$, we take the mean difference of these measurements between the obtained values of $g$ and $g_{\textup{t}}$.
+This quantity is used again in many other plots and is thus given as
 \begin{align}
-	\Delta g & \equiv \overline{g - g_{\textup{t}}}
+	\delta g & \equiv \overline{g - g_{\textup{t}}}
 	\label{eq:DeltaG}
 \end{align}
 
+where the bar denotes the mean over the measurements of the particular series.
+
 Adding it to $g_{\textup{t}}$ places the theoretical curve directly upon the measured, thus making it easy to see any deviations.
+As the platform was not in perfect equilibrium during the measurement, the values on the scales were not constant. Thus, a constant uncertainty of 0.2 g has been assumed for all measurements using the scales.
 The results are given in figure \ref{fig:SingleScale} show a very good agreement with the theoretical prediction.
 This procedure of using a test mass to obtain a series of $g$ measurement is used again in the next section.
 
@@ -588,7 +603,7 @@ This procedure of using a test mass to obtain a series of $g$ measurement is use
 	\includegraphics{SingleScale/g1}
 	\includegraphics{SingleScale/g2}
 	\includegraphics{SingleScale/g3}
-	\caption{Measurement curve of the single scale test. The measured curve is shifted by the mean difference $\Delta g$ from the theoretical prediction $g_{\textup{t}}$, such that the lines are placed upon each other. Only little to no deviation from the prediction can be observed. [\texttt{SingleScale.py}]}
+	\caption{Measurement curve of the single scale test. Each point represents one measurement of $g_i$ with an uncertainty of 0.2 g. The theoretical prediction $g_{\textup{t}}$ is shifted by the mean difference $\delta g$, such that the lines are placed upon each other. Only little to no deviation from the prediction can be observed. [\texttt{SingleScale.py}]}
 	\label{fig:SingleScale}
 \end{figure}
 
@@ -597,15 +612,15 @@ This procedure of using a test mass to obtain a series of $g$ measurement is use
 
 The procedure of the section above was the extended to measure the center of gravity of a unit in the two-dimensional $xy$ plane of the platform.
 Using the estimate of $g'$ from the previous section, we could measure the value $g$ with the unit and then find $g-g'$.
-However, it was found, that it is very difficult to set up the platform exactly in the same way, so that the measured value $g'$ remains constant.
-Thus, to determine the center of gravity, we simply take one series $g$ with the unit and one without.
-Substracting the resulting curves then directly gives us a series of measurements of $g-g'$, of which the mean value can be taken as the definite result of $g-g'$.
+However, it was found, that it is very difficult to set up the platform exactly in the same way, such that the measured value $g'$ remains constant.
+Thus, to determine the center of gravity, we take two series of $g$ on each arm, with and without the unit.
+Substracting the two resulting curves for one arm then directly gives us a series of measurements of $g_i-g_i'$, of which the mean value can be taken as the final result.
 
 To test the precision of this procedure, three weights have been placed on the platform.
 Their weights and positions are given in table \ref{tab:3Mass}. The position given in cm refers to the distance of the weight to the center of the platform.
 Since all positions and masses are known, the resulting center of gravity can be directly calculated by using equation \eqref{eq:SystemCoG}. The result is given as $\vec{R}_{\textup{t}}$ in table \ref{tab:3MassResults}.
 Five positions of the test mass ranging from 25--75 cm in steps of 10 cm have been used to determine $g-g'$.
-As a constant quality control, the curve $g_{\textup{t}} + \Delta g$ is given as a reference for each curve of $g_i$ and $g_i'$. They are shown in figure \ref{fig:3MassGTest}.
+As a constant quality control, the curve $g_{\textup{t}} + \delta g$ is given as a reference for each curve of $g_i$ and $g_i'$. They are shown in figure \ref{fig:3MassGTest}.
 The measured quantities are given in table \ref{tab:3MassValues}. The given uncertainties denote the standard deviation of the measured values.
 Comparing the measured center of gravity with the one we have calculated, we note however, that measured point is displaced by roughly 3 mm on each axis, giving a total distance of 5 mm  to the predicted center of gravity. This is seen in table \ref{tab:3MassResults}, where $\vec{R}_m$ is for the measured center of gravity.
 This can be due to systematic errors in the measurement procedure and has to be investigated further, if more precision is required. A detailed error calculation might be helpful to find out, if this error is due to lack of precision in the determination of the $g$ values.
@@ -672,13 +687,14 @@ Alternatively, we can let the $x$ axis point downward ($x-$) to obtain the $z$ a
 \begin{figure}
 	\centering
 	\includegraphics{AxesCoG}
-	\caption{Possible orientations for center of gravity measurements. Starting with $z+$ in the middle (b), one obtains $y-$ (a) and $x-$ (c) by simple rotations.}
+	\caption{Possible orientations for center of gravity measurements. Starting with $z+$ in the middle, one obtains $y-$ and $x-$ by simple rotations.}
 	\label{fig:AxesCoG}
 \end{figure}
 
 \section{Moment of inertia}
 
-The measurement procedure for the moment of inertia is based on the relation \cite{report:ernest}
+If we rotate the trifilar pendulum by a few degrees and let it move freely, the period of the resulting oscillation is directly related to the moment of inertia. Thus, to determine the moment of inertia, we need to measure that period of oscillation.
+By analyzing the equations of motions of the trifilar pendulum, the relation connecting the two quantities can be simplified to \cite{report:ernest}
 \begin{align}
 	I = \frac{R^2}{(2\pi)^2 L} m g T^2
 	\label{eq:I}
@@ -688,25 +704,32 @@ where $T$ denotes the period of the oscillation of the trifilar pendulum. $L$ is
 
 The equation requires, that the center of gravity is in the geometric center of the platform.
 For the generic case, the factor $\frac{R^2}{(2\pi)^2 L}$ has to be replaced by a more complicated expression.
-Although, no experimental deviations from this approximated formula have been observed.
+However, since the no major deviations from the prediction have been observed, it is assumed, that this approximation suits the precision required in this experiment.
 
 To measure the oscillation period, a fixed laser beam points on a tiny mirror, which is mounted on arm 3 of the platform.
 The reflected beam is then projected onto a white paper on the wall behind the laser pointer and there filmed with a camera. 
 When the pendulum rotates, the angle of the reflected beam changes, thus resulting in a periodic movement of the laser dot on the white paper.
 A \emph{GoPro Hero} video camera is used to record a video of the laser dot at 240 frames per second.
 To greatly enhance the contrast of the resulting video file, the room lighting must be turned off during measurement and the desk lamp at the platform used instead to work with the platform.
-The camera mount and the laser dot is shown in figure \ref{fig:LaserDot}
+The camera mount and the laser dot is shown in figure \ref{fig:LaserDot}.
 
 \begin{figure}
 	\centering
-	\setkeys{Gin}{width=0.49\linewidth}
-	\includegraphics{Camera}
-	\includegraphics[clip=true,trim=0 0 0 33px]{LaserDot}
+
+	\begin{subfigure}{0.49\linewidth}
+		\includegraphics{Camera}
+		\subcaption{}
+	\end{subfigure}
+	\begin{subfigure}{0.49\linewidth}
+		\includegraphics[clip=true,trim=0 0 0 33px]{LaserDot}
+		\subcaption{}
+	\end{subfigure}
+
 	\caption{Mounted \emph{GoPro} camera (a) and projected laser dot with room lighting switched off (b).}
 	\label{fig:LaserDot}
 \end{figure}
 
-To analize a video, each frame is converted to \emph{HSV} (Hue-Saturation-Value) color space and filtered for the range (150,0,100) -- (349,255,255).
+To analyze a video, each frame is converted to \emph{HSV} (Hue-Saturation-Value) color space and filtered for the range (150,0,100) -- (349,255,255).
 This selects only the pixels of the laser dot, as demonstrated in figure \ref{fig:VideoThreshhold}.
 The first order moments of the filtered image for the $x$, resp. $y$ axis divided by the total area of the dot then give the coordinates of the point in a particular frame.
 
@@ -720,20 +743,23 @@ The first order moments of the filtered image for the $x$, resp. $y$ axis divide
 The analysis is done by a simple program in \emph{C++}, which uses the \emph{OpenCV} (Open Source Computer Vision) library for image analysis.
 Since this requires some computing power, analyzing a 20 s video with a resolution of \emph{848 x 480 / 240 fps} takes up to 30 s on an \emph{Intel i5-2540M}.
 
-To determine the period from the analyzed video file, a fit with two damped sine waves is performed. The fitting function is defined as
+The platform rotation causes the laser dot to move roughly along a line on the wall. If the camera was mounted in perfect alignment with this line, there would be no movement in the $y$ direction of the recorded video file. As the camera is not aligned perfectly, the dot also slightly oscillates around the $y$ axis. However, this only scales the amplitude of oscillation in $x$ direction and does not change the actual perdiod. Hence, the $y$ component can be ignored.
+
+Figure \ref{fig:PeriodFit} shows the spectrum of a recorded wave. As there are two peaks and we additionally assume a slight damping on longer measurements, a fit using two damped sine waves has been chosen.
+The fitting function is thus defined as
 \begin{align}
 	f(\vec{A}, \vec{\tau}, \vec{T}, \vec{\delta}, C, t) & = \sum_{i=1}^2 A_i e^{-\tau_i t} \sin \left( \frac{2\pi}{T_i} t + \delta_i \right) + C
 	\label{eq:FitFunction}
 \end{align}
 
-Of the two resulting waves, the one with the greater amplitude is taken as the wave to determine $T$. An example curve, along with the fit is shown in figure \ref{fig:PeriodFit}.
+Of the two resulting waves, the one with the greater amplitude is taken as the wavefunction to determine $T$. The example curve along with the fit and the residual can be seen in figure \ref{fig:PeriodFit}.
 The fit is performed as a least-square fit. Its success is heavily dependent on the initial parameters.
 They have to be adjusted, if the period differs a lot between two measurements.
 
 \begin{figure}
 	\centering
-	\includegraphics{period_fit}
-	\caption{A sample curve from an tracked video file together with a fit performed with function \eqref{eq:FitFunction}. Also shown is the difference between the fit and the wave function. [\texttt{signal.py}]}
+	\includegraphics[width=\linewidth]{PeriodFit}
+	\caption{Sample data from the $x$ component of a tracked video file showing the spectrum and the raw signal with the fit performed using function \eqref{eq:FitFunction}, as well as the difference between the fit and the data. The signal is shifted to the origin for better readability of the results. No unit on the vertical axes is given, since the overall magnitude is irrelevant for the frequency of oscillation. [\texttt{signal.py}]}
 	\label{fig:PeriodFit}
 \end{figure}
 
@@ -756,13 +782,22 @@ The moment of inertia of multiple objects is just the sum of the individual mome
 Thus, by adding the mean difference between the measurement and the prediction to $I_{\textup{t}}$ places the two curves on each other, allowing easy verification of the prediction.
 We denote this quantity with
 \begin{align}
-	\Delta I & \equiv \overline{I - I_{\textup{t}}}
+	\delta I & \equiv \overline{I - I_{\textup{t}}}
 	\label{eq:DeltaI}
+\end{align}
+
+For the measurement uncertainty, we have an error in the quantities $R$, $L$, $m$ and $T$. The values of $R$ and $L$ are obtained with a tape measure and thus have the same error of $\Delta R = \Delta L = 0.5$ mm. The error in $m$ is $\Delta m = 0.5$ g. For $T$ the error is taken from the uncertainty of the least-square fit and is thus different for each measurement. For a 5 s video it is usually of order $10^{-5}$ s.
+The error in $I$ is then given by
+
+\begin{align}
+	\Delta I & = \left| \frac{\partial I}{\partial R} \right| \cdot | \Delta R | + \left| \frac{\partial I}{\partial L} \right| \cdot | \Delta L | \\ &\;\;\;\; + \left| \frac{\partial I}{\partial m} \right| \cdot | \Delta m |  + \left| \frac{\partial I}{\partial T} \right| \cdot | \Delta T |\\
+	& = \left( 2 \frac{\Delta R}{R} + \frac{\Delta L}{L} + \frac{\Delta m}{m} + 2 \frac{\Delta T}{T} \right) I
+	\label{eq:IErr}
 \end{align}
 
 The resulting plots of the three measurement series are given in figure \ref{fig:Inertia}.
 As can bee seen in the figures, the measured moments follow the prediction quite well. One can see a slight increase with the longer recording duration.
-The numerical results for the platform moment are given in table \ref{tab:Inertia}, with the uncertainties given as standard deviations of the single measurement series.
+The numerical results for the platform moment are given in table \ref{tab:Inertia}, with the uncertainties given as standard deviations of each measurement series.
 One can see, that the overall uncertainty of the measurement is in the already range of $\pm 0.00035 \unit{kg~m^2}$ for a 5 s measurement and reduces only slightly, as the measurement duration gets longer. For comparison, the two nuts, used as test mass, with a total weight of $20.94\,\unit{g}$ placed at $25\,\unit{cm}$ produce a moment of inertia of $I \approx 0.0013~\unit{kg\,m^2}$.
 Therefore, for practical purposes, a measurement duration from 5--10 $\unit{s}$ can be recommended.
 
@@ -771,7 +806,7 @@ Therefore, for practical purposes, a measurement duration from 5--10 $\unit{s}$ 
 	\includegraphics{Inertia/5s}
 	\includegraphics{Inertia/10s}
 	\includegraphics{Inertia/20s}
-	\caption{Measurement series for the inertia characterization with different recording durations plotted against the parabolic prediction $I_{\textup{t}}$ of eq. \eqref{eq:It}. The measurement curve is shifted by the average mean $\Delta I$ to place the curves upon each other. [\texttt{Inertia.py}]}
+	\caption{Measurement series for the inertia characterization with different recording durations plotted against the parabolic prediction $I_{\textup{t}}$ of eq. \eqref{eq:It}. The measurement curve is shifted by the average mean $\delta I$ to place the curves upon each other. [\texttt{Inertia.py}]}
 	\label{fig:Inertia}
 \end{figure}
 
@@ -872,9 +907,16 @@ Unfortunately, the axes names drawn currently on the unit surface have the $x$ a
 
 \begin{figure}
 	\centering
-	\setkeys{Gin}{width=0.49\linewidth}
-	\includegraphics{Pins}
-	\includegraphics[clip=true,trim=0 0 0 126px]{Holes}
+
+	\begin{subfigure}{0.49\linewidth}
+		\includegraphics{Pins}
+		\subcaption{}
+	\end{subfigure}
+	\begin{subfigure}{0.49\linewidth}
+		\includegraphics[clip=true,trim=0 0 0 126px]{Holes}
+		\subcaption{}
+	\end{subfigure}
+
 	\caption{Small pins attached to the plastic ring (a), that fit into the 3 holes on the unit surface (b) make easy to mount the unit in the 6 different orientations.}
 	\label{fig:PinsHoles}
 \end{figure}
@@ -888,7 +930,7 @@ As introduced before, we test each measurement series against the prediction, wh
 	I_{\textup{t}} & = mr^2
 \end{align*}
 
-as given in equations \eqref{eq:It} and \eqref{eq:gt}. The mean difference $\Delta g$ is added, to place the two curves upon each other.
+as given in equations \eqref{eq:It} and \eqref{eq:gt}. The mean difference $\delta g$ is added, to place the two curves upon each other.
 A nut of mass 10.55 g was used as a test mass for all series.
 The results are given in figure \ref{fig:FFU} for the center of gravity measurements and the inertia tensor measurements.
 No major deviations from the predicion could be observed.
@@ -905,19 +947,19 @@ Thus, we can conclude, that the unit is balanced in its geometrical frame.
 	\centering
 	\begin{tabular}{r | r r}
 		\multicolumn{3}{r}{rel. $\sigma$} \\
-		& \multicolumn{2}{r}{2D center of gracity ($x-$ orientation)} \\
+		& \multicolumn{2}{r}{2D center of gravity ($x-$ orientation)} \\
 		\hline
 		$g_{1}$	& 2.932(50) g	& 1.69 \% \\
 		$g_{3}$	& 0.884(22) g	& 2.54 \% \\
 		$R_x$	& -1.409(54) mm	& 3.87 \% \\
 		$R_y$	& -6.15(10) mm	& 1.69 \% \\
-		& \multicolumn{2}{r}{2D center of gracity ($z+$ orientation)} \\
+		& \multicolumn{2}{r}{2D center of gravity ($z+$ orientation)} \\
 		\hline
 		$g_2$	& 0.730(37) g	& 5.05 \% \\
 		$g_3$	& -0.84(10) g	& 12.46 \% \\
 		$R_x$	& -2.92(29) mm	& 9.86 \% \\
 		$R_y$	& -1.531(77) mm	& 5.05 \% \\
-		& \multicolumn{2}{r}{3D center of gracity} \\
+		& \multicolumn{2}{r}{3D center of gravity} \\
 		\hline
 		$R_x$	& -2.92(29) mm	& 9.86 \% \\
 		$R_y$	& 2.309(75) mm	& 3.24 \% \\
@@ -955,9 +997,9 @@ Thus, we can conclude, that the unit is balanced in its geometrical frame.
 		$I_{xx}$	&	2.283(89)	& 3.91 \% \\
 		$I_{yy}$	&	2.189(73)	& 3.32 \% \\
 		$I_{zz}$	&	2.404(97)	& 4.02 \% \\
-		$I_{xy}$	&	0.02(13)	& 807 \% \\
-		$I_{xz}$	&	0.04(14)	& 349 \% \\
-		$I_{yz}$	&	0.14(23)	& 168 \% \\
+		$I_{xy}$	&	0.02(13)	& - \\
+		$I_{xz}$	&	0.04(14)	& - \\
+		$I_{yz}$	&	0.14(23)	& - \\
 	\end{tabular}
 	\caption{The inertia tensor of the \emph{MUSCAT FFU}. [\texttt{InertiaTensor.py}]}
 	\label{tab:FFUInertiaTensor}
@@ -967,7 +1009,7 @@ Thus, we can conclude, that the unit is balanced in its geometrical frame.
 
 The code to analyze the measurement results is written in \emph{Python} and relies heavily on \emph{numpy}, \emph{scipy} and \emph{matplotlib}.
 Experimental data is read from \emph{JSON} (JavaScript Object Notation) files.
-The complete project is available in a repository on \emph{GitHub} at \cite{website:github}.
+The complete project is available in the repository on \emph{GitHub} at \cite{website:github}.
 And includes all script, which were used to create the plots in this report.
 Thus, all the measurements results are also stored in the repository. 
 
